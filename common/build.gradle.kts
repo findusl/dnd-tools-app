@@ -19,6 +19,7 @@ kotlin {
         }
     }
     sourceSets {
+		val ktorVersion = "1.6.7"
         val commonMain by getting {
             dependencies {
                 api(compose.runtime)
@@ -28,6 +29,9 @@ kotlin {
 				api("org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlinxSerializationVersion")
 				api("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion")
 				api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+
+				api("io.ktor:ktor-client-core:$ktorVersion")
+				api("io.ktor:ktor-client-serialization:$ktorVersion")
             }
         }
         val commonTest by getting {

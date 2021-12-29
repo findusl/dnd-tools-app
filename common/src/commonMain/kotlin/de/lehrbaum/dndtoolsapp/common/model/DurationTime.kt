@@ -5,9 +5,13 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class DurationX(
+/**
+ * Note, seems very similar to the [Time] class
+ */
+data class DurationTime(
     @SerialName("amount")
     val amount: Int,
-    @SerialName("type")
-    val type: String
+	@SerialName("type")
+	val type: String,
+	val upTo: Boolean = false,
 )

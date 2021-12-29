@@ -5,9 +5,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Distance(
-    @SerialName("type")
-    val type: String,
-	@SerialName("amount")
-	val amount: Int = -1
+data class Class(
+    @SerialName("name")
+    val name: String,
+    @SerialName("source")
+    val source: String
 )

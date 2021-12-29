@@ -17,10 +17,13 @@ kotlin {
         withJava()
     }
     sourceSets {
+		val ktorVersion = "1.6.7"
         val jvmMain by getting {
             dependencies {
                 implementation(project(":common"))
                 implementation(compose.desktop.currentOs)
+
+				implementation("io.ktor:ktor-client-cio:$ktorVersion")
             }
         }
         val jvmTest by getting

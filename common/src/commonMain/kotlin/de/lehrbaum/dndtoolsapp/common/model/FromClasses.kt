@@ -5,9 +5,8 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class FromClass(
-    @SerialName("name")
-    val name: String,
-    @SerialName("source")
-    val source: String
+data class FromClasses(
+    @SerialName("fromClassList")
+    val fromClassList: List<Class> = listOf()
+	// Also has fromClassListvariant
 )

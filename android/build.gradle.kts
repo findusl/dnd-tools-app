@@ -13,9 +13,7 @@ dependencies {
 
     implementation("androidx.activity:activity-compose:1.4.0")
 
-	implementation("io.ktor:ktor-client-core:$ktorVersion")
 	implementation("io.ktor:ktor-client-android:$ktorVersion")
-	implementation("io.ktor:ktor-client-serialization:$ktorVersion")
 
 	implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0")
 }
