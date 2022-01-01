@@ -7,7 +7,8 @@ import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.serialization.json.Json
 
 fun main() {
@@ -25,9 +26,21 @@ fun main() {
 	val networkClient = NetworkClient(httpClient)
 
 	runBlocking {
-		networkClient.spells.collect {
-			println(it)
+		val allSpells = networkClient.spells.stateIn(GlobalScope)
+
+		launch {
+			allSpells.collect {
+				println(it.first())
+			}
 		}
+		launch {
+			allSpells.collect {
+				println(it.first())
+			}
+		}
+		// there should be some better approach but this is easiest right now
+		delay(5000)
+		cancel()
 	}
 
 	// runApplication()

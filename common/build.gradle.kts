@@ -32,6 +32,8 @@ kotlin {
 
 				api("io.ktor:ktor-client-core:$ktorVersion")
 				api("io.ktor:ktor-client-serialization:$ktorVersion")
+
+				implementation("io.github.aakira:napier:+")
             }
         }
         val commonTest by getting {

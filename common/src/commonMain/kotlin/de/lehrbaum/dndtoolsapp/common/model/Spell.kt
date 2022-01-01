@@ -9,6 +9,10 @@ data class Spell(
 	val classes: FromClasses = FromClasses(),
 	@SerialName("backgrounds")
 	val backgrounds: List<Background> = listOf(),
+	@SerialName("races")
+	val races: List<Race> = listOf(),
+	@SerialName("eldritchInvocations")
+	val eldritchInvocations: List<EldritchInvocation> = listOf(),
 	// also has races
 	@SerialName("components")
     val components: Components = Components(),
