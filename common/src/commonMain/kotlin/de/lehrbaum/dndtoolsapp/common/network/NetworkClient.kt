@@ -22,7 +22,7 @@ class NetworkClient(httpClient: HttpClient) {
 			coroutineScope {
 				val result = spellSources.values.map { jsonFileName ->
 					val url = "https://5e.tools/data/spells/$jsonFileName"
-					println("Loading spells from $url")
+					Napier.v({ "Loading spells from $url" }, tag = TAG)
 					async {
 						try {
 							httpClient.request<SpellList>(url)

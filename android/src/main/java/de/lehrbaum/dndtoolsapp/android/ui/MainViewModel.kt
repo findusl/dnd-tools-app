@@ -12,9 +12,7 @@ import io.ktor.client.engine.android.Android
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
 
 class MainViewModel : ViewModel() {
@@ -33,6 +31,13 @@ class MainViewModel : ViewModel() {
 	val allSpells = networkClient.spells
 		.flowOn(Dispatchers.IO)
 		.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), listOf())
+
+	private val _selectedSpell = MutableStateFlow<Spell?>(null)
+	val selectedSpell: StateFlow<Spell?> = _selectedSpell.stateIn(viewModelScope, SharingStarted.Eagerly, null)
+
+	fun onSpellClicked(spell: Spell) {
+		_selectedSpell.value = spell
+	}
 
 	private fun List<Spell>.generateFilterOptions() : List<FilterOptions<*>> {
 		val sourceOptions = mutableSetOf<String>()
