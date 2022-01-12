@@ -1,17 +1,20 @@
 package de.lehrbaum.dndtoolsapp.common.network
 
+import de.lehrbaum.dndtoolsapp.common.getHttpClient
 import de.lehrbaum.dndtoolsapp.common.model.SpellList
 import io.github.aakira.napier.Napier
-import io.ktor.client.*
-import io.ktor.client.request.*
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
-import kotlin.RuntimeException
-import kotlin.coroutines.CoroutineContext
+import io.ktor.client.request.request
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.mapLatest
 
 private val TAG = "NetworkClient"
 
-class NetworkClient(httpClient: HttpClient) {
+class NetworkClient {
+
+	private val httpClient = getHttpClient()
 
 	private val spellSources = flow<Map<String, String>> {
 		emit(httpClient.request("https://5e.tools/data/spells/index.json"))

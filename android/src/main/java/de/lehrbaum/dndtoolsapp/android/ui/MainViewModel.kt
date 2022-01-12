@@ -7,35 +7,27 @@ import de.lehrbaum.dndtoolsapp.common.model.Class
 import de.lehrbaum.dndtoolsapp.common.model.Race
 import de.lehrbaum.dndtoolsapp.common.model.Spell
 import de.lehrbaum.dndtoolsapp.common.network.NetworkClient
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.android.Android
-import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.json.serializer.KotlinxSerializer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import kotlinx.serialization.json.Json
 
-class MainViewModel : ViewModel() {
+interface MainViewModel {
+	val allSpells: StateFlow<List<Spell>>
+	val selectedSpell: StateFlow<Spell?>
+	fun onSpellClicked(spell: Spell)
+}
 
-	private val ktorHttpClient = HttpClient(Android) {
-		install(JsonFeature) {
-			serializer = KotlinxSerializer(Json {
-				isLenient = true
-				ignoreUnknownKeys = true
-			})
-		}
-	}
+class MainViewModelImpl : ViewModel(), MainViewModel {
 
-	private val networkClient = NetworkClient(ktorHttpClient)
+	private val networkClient = NetworkClient()
 
-	val allSpells = networkClient.spells
+	override val allSpells = networkClient.spells
 		.flowOn(Dispatchers.IO)
 		.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), listOf())
 
 	private val _selectedSpell = MutableStateFlow<Spell?>(null)
-	val selectedSpell: StateFlow<Spell?> = _selectedSpell.stateIn(viewModelScope, SharingStarted.Eagerly, null)
+	override val selectedSpell: StateFlow<Spell?> = _selectedSpell.stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
-	fun onSpellClicked(spell: Spell) {
+	override fun onSpellClicked(spell: Spell) {
 		_selectedSpell.value = spell
 	}
 

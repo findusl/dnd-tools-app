@@ -8,3 +8,4 @@ data class Source(
 	// TODO Find the spell where this is null, curious
 	val page: Int? = null
 )
+

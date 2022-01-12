@@ -10,5 +10,5 @@ data class Range(
     val distance: Distance? = null,
 	// type can be special then distance is null
 	@SerialName("type")
-    val type: String
+	val type: String = ""
 )

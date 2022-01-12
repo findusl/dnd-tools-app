@@ -12,6 +12,7 @@ version = "0.1"
 
 kotlin {
 	val kotlinxSerializationVersion = "1.3.1"
+	val ktorVersion = "1.6.7"
     android()
     jvm("desktop") {
         compilations.all {
@@ -19,7 +20,6 @@ kotlin {
         }
     }
     sourceSets {
-		val ktorVersion = "1.6.7"
         val commonMain by getting {
             dependencies {
                 api(compose.runtime)
@@ -43,8 +43,10 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                api("androidx.appcompat:appcompat:1.4.0")
-                api("androidx.core:core-ktx:1.7.0")
+				api("androidx.appcompat:appcompat:1.4.0")
+				api("androidx.core:core-ktx:1.7.0")
+
+				implementation("io.ktor:ktor-client-android:$ktorVersion")
             }
         }
         val androidTest by getting {
@@ -54,7 +56,9 @@ kotlin {
         }
         val desktopMain by getting {
             dependencies {
-                api(compose.preview)
+				api(compose.preview)
+
+				implementation("io.ktor:ktor-client-cio:$ktorVersion")
             }
         }
         val desktopTest by getting
