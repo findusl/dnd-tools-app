@@ -1,11 +1,9 @@
 package de.lehrbaum.dndtoolsapp.android.ui
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -16,12 +14,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import de.lehrbaum.dndtoolsapp.common.model.Spell
 import de.lehrbaum.dndtoolsapp.common.model.loadSampleSpells
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
-fun SpellListView(mainViewModel: MainViewModel) {
+fun MainView(mainViewModel: MainViewModel) {
 	val configuration = LocalConfiguration.current
 
 	Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
@@ -37,14 +36,23 @@ private fun SpellList(mainViewModel: MainViewModel) {
 	val spells by mainViewModel.allSpells.collectAsState()
 	LazyColumn {
 		items(spells) { spell ->
-			Text(
-				text = spell.name,
-				modifier = Modifier
-					.clickable { mainViewModel.onSpellClicked(spell) }
-					.fillParentMaxWidth()
-			)
+			SpellListItem(spell, mainViewModel)
 		}
 	}
+}
+
+@Composable
+private fun LazyItemScope.SpellListItem(
+	spell: Spell,
+	mainViewModel: MainViewModel
+) {
+	Text(
+		text = spell.name,
+		modifier = Modifier
+			.clickable { mainViewModel.onSpellClicked(spell) }
+			.padding(horizontal = 8.dp, vertical = 3.dp)
+			.fillParentMaxWidth()
+	)
 }
 
 @Composable
@@ -58,11 +66,11 @@ private fun ColumnScope.SpellDetail(mainViewModel: MainViewModel) {
 	}
 }
 
-@Preview(name = "Spell List Preview", widthDp = 300, heightDp = 500)
+@Preview(name = "Main View Preview", widthDp = 300, heightDp = 500)
 @Composable
 fun Preview() {
 	val spells = loadSampleSpells()
-	SpellListView(mainViewModel = MockMainViewModel(spells, spells.first()))
+	MainView(mainViewModel = MockMainViewModel(spells, spells.first()))
 }
 
 private class MockMainViewModel(

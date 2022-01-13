@@ -6,26 +6,28 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Spell(
 	@SerialName("abilityCheck")
-	val abilityCheck: List<String> = listOf(),
+	val abilityCheck: List<BaseAttribute> = listOf(),
 	@SerialName("affectsCreatureType")
 	val affectsCreatureType: List<String> = listOf(),
 	@SerialName("areaTags")
-	val areaTags: List<String> = listOf(),
+	val areaTags: List<AreaTag> = listOf(),
+	val basicRules: Boolean = false,
 	@SerialName("damageImmune")
-	val damageImmune: List<String> = listOf(),
+	val damageImmune: List<DamageType> = listOf(),
 	@SerialName("damageInflict")
-	val damageInflict: List<String> = listOf(),
+	val damageInflict: List<DamageType> = listOf(),
 	@SerialName("damageResist")
-	val damageResist: List<String> = listOf(),
+	val damageResist: List<DamageType> = listOf(),
 	@SerialName("damageVulnerable")
-	val damageVulnerable: List<String> = listOf(),
+	val damageVulnerable: List<DamageType> = listOf(),
 	@SerialName("backgrounds")
 	val backgrounds: List<Background> = listOf(),
 	@SerialName("time")
 	val castingTime: List<Time> = listOf(),
+	@SerialName("conditionImmune")
+	val conditionImmune: List<String> = listOf(),
 	@SerialName("classes")
 	val classes: FromClasses = FromClasses(),
-	// also has races
 	@SerialName("components")
 	val components: Components = Components(),
 	@SerialName("conditionInflict")
@@ -38,28 +40,34 @@ data class Spell(
 	val entries: List<@Serializable(with = DescriptionEntrySerializer::class) DescriptionEntry> = listOf(),
 	@SerialName("entriesHigherLevel")
 	val entriesHigherLevel: List<@Serializable(with = DescriptionEntrySerializer::class) DescriptionEntry> = listOf(),
+	val hasFluff: Boolean = false,
 	val hasFluffImages: Boolean = false,
 	@SerialName("level")
 	val level: Int,
+	@SerialName("meta")
+	val meta: Map<String, Boolean> = mapOf(),
 	@SerialName("miscTags")
 	val miscTags: List<String> = listOf(),
 	@SerialName("name")
 	val name: String,
 	@SerialName("races")
 	val races: List<Race> = listOf(),
+	@Transient val ritual: Boolean = meta["ritual"] ?: false,
 	@SerialName("range")
 	val range: Range = Range(),
 	@SerialName("savingThrow")
-	val savingThrow: List<String> = listOf(),
-	// They can be an array
-	// val scalingLevelDice: ScalingLevelDice? = null,
+	val savingThrow: List<BaseAttribute> = listOf(),
+	@Serializable(with = ScalingLevelDiceListSerializer::class)
+	val scalingLevelDice: List<ScalingLevelDice> = listOf(),
+	@SerialName("school")
+	val school: MagicSchool,
 	@SerialName("spellAttack")
 	val spellAttack: List<String> = listOf(),
-	@SerialName("school")
-	val school: String,
+	val srd: String = "false",
 	@SerialName("source")
 	val source: String,
 	@SerialName("page")
 	val sourcePage: Int,
 	val otherSources: List<Source> = listOf(),
+	val additionalSources: List<Source> = listOf(),
 )

@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Source(
 	val source: String,
-	// TODO Find the spell where this is null, curious
+	// This is null for Chaos Bolt and Shape water
 	val page: Int? = null
 )
 

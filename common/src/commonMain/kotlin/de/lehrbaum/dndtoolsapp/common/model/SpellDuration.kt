@@ -6,11 +6,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SpellDuration(
-	@SerialName("duration")
-    val durationTime: DurationTime? = null,
-	@SerialName("type")
-    val type: String,
 	@SerialName("concentration")
 	val concentration: Boolean = false,
-	val ends: List<String> = listOf()
+	val condition: String? = null,
+	@SerialName("duration")
+	val durationTime: DurationTime? = null,
+	val ends: List<String> = listOf(),
+	@SerialName("type")
+	val type: String,
 )

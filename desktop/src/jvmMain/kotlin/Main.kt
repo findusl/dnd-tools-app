@@ -4,8 +4,10 @@ import androidx.compose.ui.window.application
 import de.lehrbaum.dndtoolsapp.common.App
 import de.lehrbaum.dndtoolsapp.common.initialize
 import de.lehrbaum.dndtoolsapp.common.network.NetworkClient
-import kotlinx.coroutines.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.runBlocking
 
 fun main() {
 	initialize()
@@ -15,14 +17,10 @@ fun main() {
 	runBlocking {
 		val allSpells = networkClient.spells.stateIn(GlobalScope)
 
-		launch {
-			allSpells.collect {
-				println("Managed to load ${it.size} spells. First: ${it.first()}")
-			}
+		allSpells.collect { spells ->
+			println("Managed to load ${spells.size} spells. First: ${spells.first()}")
+			cancel()
 		}
-		// there should be some better approach but this is easiest right now
-		delay(5000)
-		cancel()
 	}
 
 	// runApplication()

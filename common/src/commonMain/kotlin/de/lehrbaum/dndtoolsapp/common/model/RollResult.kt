@@ -7,6 +7,7 @@ data class RollResult(
 	val exact: Int = -1,
 	val max: Int = -1,
 	val min: Int = -1,
+	val pad: Boolean = false,
 ) {
 	init {
 		assert(exact > 0 || (max > 0 && min > 0)) {
