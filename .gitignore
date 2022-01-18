@@ -90,3 +90,6 @@ gradle-app.setting
 
 # Macos
 .DS_Store
+
+# Manual edits because annoying:
+.idea/misc.xml

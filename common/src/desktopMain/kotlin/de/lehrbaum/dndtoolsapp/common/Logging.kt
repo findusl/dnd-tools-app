@@ -4,10 +4,9 @@ import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import java.util.logging.*
 
-fun initialize() {
+fun initializeLogging() {
 	val errorHandler = ConsoleHandler().apply {
 		level = Level.WARNING
-
 	}
 	val normalHandler = NonErrorConsoleHandler()
 	Napier.base(DebugAntilog(handler = listOf(errorHandler, normalHandler)))

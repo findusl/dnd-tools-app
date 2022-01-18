@@ -2,7 +2,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import de.lehrbaum.dndtoolsapp.common.App
-import de.lehrbaum.dndtoolsapp.common.initialize
+import de.lehrbaum.dndtoolsapp.common.initializeLogging
 import de.lehrbaum.dndtoolsapp.common.network.NetworkClient
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.cancel
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.runBlocking
 
 fun main() {
-	initialize()
+	initializeLogging()
 
 	val networkClient = NetworkClient()
 

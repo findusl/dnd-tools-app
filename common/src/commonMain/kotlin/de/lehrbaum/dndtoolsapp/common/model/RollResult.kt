@@ -10,7 +10,7 @@ data class RollResult(
 	val pad: Boolean = false,
 ) {
 	init {
-		assert(exact > 0 || (max > 0 && min > 0)) {
+		require(exact != -1 || (max != -1 && min != -1)) {
 			"Either exact value or min and max for roll have to be present."
 		}
 	}

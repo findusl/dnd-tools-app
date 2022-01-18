@@ -33,7 +33,7 @@ kotlin {
 				api("io.ktor:ktor-client-core:$ktorVersion")
 				api("io.ktor:ktor-client-serialization:$ktorVersion")
 
-				implementation("io.github.aakira:napier:+")
+				implementation("io.github.aakira:napier:2.3.0")
             }
         }
         val commonTest by getting {
@@ -68,10 +68,10 @@ kotlin {
 android {
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 	// this stuff is also defined in the android source set and I have not found a good way to centralize it.
-	compileSdk = 32
+	compileSdk = 31
 	defaultConfig {
 		minSdk = 30
-		targetSdk = 32
+		targetSdk = 31
 	}
 	compileOptions {
 		sourceCompatibility = JavaVersion.VERSION_1_8

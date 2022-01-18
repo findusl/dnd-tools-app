@@ -16,7 +16,7 @@ actual fun getHttpClient() = HttpClient(Android) {
 	install(JsonFeature) {
 		serializer = KotlinxSerializer(Json {
 			isLenient = true
-			ignoreUnknownKeys = true
+			// ignoreUnknownKeys = true
 		})
 	}
 }

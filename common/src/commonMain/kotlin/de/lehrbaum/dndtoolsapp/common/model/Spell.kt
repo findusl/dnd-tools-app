@@ -52,7 +52,7 @@ data class Spell(
 	val name: String,
 	@SerialName("races")
 	val races: List<Race> = listOf(),
-	@Transient val ritual: Boolean = meta["ritual"] ?: false,
+	// @Transient val ritual: Boolean = meta["ritual"] ?: false,
 	@SerialName("range")
 	val range: Range = Range(),
 	@SerialName("savingThrow")

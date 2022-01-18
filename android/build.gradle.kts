@@ -8,7 +8,6 @@ group = "de.lehrbaum.dndtoolsapp"
 version = "0.1"
 
 dependencies {
-	val ktorVersion = "1.6.7"
 	val composeVersion = "1.0.5"
 
 	implementation(project(":common"))
@@ -29,11 +28,11 @@ dependencies {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 31
     defaultConfig {
         applicationId = "de.lehrbaum.dndtoolsapp.android"
         minSdk = 30
-        targetSdk = 32
+        targetSdk = 31
         versionCode = 1
         versionName = "1.0"
 	}

@@ -10,7 +10,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.mapLatest
 
-private val TAG = "NetworkClient"
+private const val TAG = "NetworkClient"
 
 class NetworkClient {
 
@@ -30,7 +30,7 @@ class NetworkClient {
 						try {
 							httpClient.request<SpellList>(url)
 						} catch (e: Exception) {
-							Napier.w("Failed to load from $url", e, TAG)
+							Napier.e("Failed to load from $url", e, TAG)
 							null
 						}
 					}
