@@ -19,6 +19,13 @@ fun main() {
 
 		allSpells.collect { spells ->
 			println("Managed to load ${spells.size} spells. First: ${spells.first()}")
+
+			val multiDurationSpells = spells.filter { it.duration.size > 1 }.joinToString()
+			println("These spells have multiple durations: $multiDurationSpells")
+
+			val multiCastingTimeSpells = spells.filter { it.castingTime.size > 1 }.joinToString()
+			println("These spells have multiple casting times: $multiCastingTimeSpells")
+
 			cancel()
 		}
 	}

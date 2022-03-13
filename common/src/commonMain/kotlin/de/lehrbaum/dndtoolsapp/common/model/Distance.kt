@@ -10,4 +10,8 @@ data class Distance(
     val type: String,
 	@SerialName("amount")
 	val amount: Int = -1
-)
+) {
+	override fun toString(): String {
+		return if (amount != -1) "$amount $type" else type
+	}
+}

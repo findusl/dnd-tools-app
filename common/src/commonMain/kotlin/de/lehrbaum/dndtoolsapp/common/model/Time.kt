@@ -14,4 +14,8 @@ data class Time(
     @SerialName("unit")
     val unit: String,
 	val condition: String? = null
-)
+) {
+	override fun toString(): String {
+		return if (condition != null) "$number $unit, $condition" else "$number $unit"
+	}
+}

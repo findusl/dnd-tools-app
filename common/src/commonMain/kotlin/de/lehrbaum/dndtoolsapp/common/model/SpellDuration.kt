@@ -13,5 +13,13 @@ data class SpellDuration(
 	val durationTime: DurationTime? = null,
 	val ends: List<String> = listOf(),
 	@SerialName("type")
-	val type: String,
-)
+	val type: DurationType,
+) {
+	override fun toString(): String {
+		if (type == DurationType.INSTANT) return "Instant"
+		val sb = StringBuilder()
+		if (concentration) sb.append("Concentration, ")
+		sb.append(durationTime.toString())
+		return sb.toString()
+	}
+}

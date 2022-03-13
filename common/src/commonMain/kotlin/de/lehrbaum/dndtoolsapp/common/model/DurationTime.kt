@@ -14,4 +14,8 @@ data class DurationTime(
 	@SerialName("type")
 	val type: String,
 	val upTo: Boolean = false,
-)
+) {
+	override fun toString(): String {
+		return "$amount $type"
+	}
+}
