@@ -1,5 +1,6 @@
 package de.lehrbaum.dndtoolsapp.android.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -35,7 +36,7 @@ fun MainView(mainViewModel: MainViewModel) {
 	// could even specify size depending on selected spell or not
 
 	// the nested scrollable currently breaks it, hopefully works with fixed height
-	Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+	Column(modifier = Modifier.background(Color.Gray).verticalScroll(rememberScrollState())) {
 		val selectedSpell = mainViewModel.selectedSpell.collectAsState().value
 		val listHeight = if (selectedSpell != null) 300.dp else 500.dp
 		SpellList(mainViewModel, modifier = Modifier.height(listHeight))
@@ -48,8 +49,10 @@ fun MainView(mainViewModel: MainViewModel) {
 @Composable
 private fun SpellList(mainViewModel: MainViewModel, modifier: Modifier = Modifier) {
 	val spells by mainViewModel.allSpells.collectAsState(Dispatchers.Main)
+	val sortedSpells = spells.sortedWith(compareBy<Spell> { it.level }.thenBy { it.name })
+
 	LazyColumn(modifier = modifier) {
-		if (spells.isNotEmpty()) {
+		if (sortedSpells.isNotEmpty()) {
 			items(spells) { spell ->
 				SpellListItem(spell, mainViewModel)
 			}
