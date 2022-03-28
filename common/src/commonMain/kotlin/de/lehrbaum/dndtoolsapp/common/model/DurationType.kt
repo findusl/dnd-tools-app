@@ -10,4 +10,10 @@ enum class DurationType {
 
 	@SerialName("timed")
 	TIMED,
+
+	@SerialName("permanent")
+	PERMANENT,
+
+	@SerialName("special")
+	SPECIAL,
 }

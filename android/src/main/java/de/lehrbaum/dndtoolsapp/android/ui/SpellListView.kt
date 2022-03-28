@@ -1,5 +1,6 @@
 package de.lehrbaum.dndtoolsapp.android.ui
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,6 +19,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -30,15 +32,21 @@ import de.lehrbaum.dndtoolsapp.common.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 
+private const val TAG = "SpellListView"
+
 @Composable
 fun MainView(mainViewModel: MainViewModel) {
 	// maybe use LocalConfiguration.current for the spelllist height
 	// could even specify size depending on selected spell or not
 
+	val screenHeight = LocalConfiguration.current.screenHeightDp
+
 	// the nested scrollable currently breaks it, hopefully works with fixed height
-	Column(modifier = Modifier.background(Color.Gray).verticalScroll(rememberScrollState())) {
+	Column(modifier = Modifier
+		.background(Color.Gray)
+		.verticalScroll(rememberScrollState())) {
 		val selectedSpell = mainViewModel.selectedSpell.collectAsState().value
-		val listHeight = if (selectedSpell != null) 300.dp else 500.dp
+		val listHeight = if (selectedSpell != null) (screenHeight/1.6).dp else screenHeight.dp
 		SpellList(mainViewModel, modifier = Modifier.height(listHeight))
 		if (selectedSpell != null) {
 			SpellDetail(selectedSpell, mainViewModel::deselectSpell)
@@ -50,10 +58,11 @@ fun MainView(mainViewModel: MainViewModel) {
 private fun SpellList(mainViewModel: MainViewModel, modifier: Modifier = Modifier) {
 	val spells by mainViewModel.allSpells.collectAsState(Dispatchers.Main)
 	val sortedSpells = spells.sortedWith(compareBy<Spell> { it.level }.thenBy { it.name })
+	Log.i(TAG, "Last item in list is ${sortedSpells.lastOrNull()?.name}")
 
 	LazyColumn(modifier = modifier) {
 		if (sortedSpells.isNotEmpty()) {
-			items(spells) { spell ->
+			items(sortedSpells) { spell ->
 				SpellListItem(spell, mainViewModel)
 			}
 		} else {
@@ -163,7 +172,7 @@ private fun DurationText(durations: List<SpellDuration>) {
 			withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
 				append("Duration: ")
 			}
-			append(durations.first().toString())
+			append(durations.first().shortDescription)
 		},
 		fontSize = SmallFontSize,
 	)
@@ -176,7 +185,7 @@ private fun ComponentsText(components: Components) {
 			withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
 				append("Components: ")
 			}
-			append(components.toString())
+			append(components.shortDescription)
 		},
 		fontSize = SmallFontSize,
 	)
@@ -193,13 +202,37 @@ private fun ColumnScope.DescriptionBlock(entries: List<DescriptionEntry>) {
 @Composable
 private fun DescriptionEntryView(entry: DescriptionEntry) {
 	when (entry) {
-		is InsetEntries -> TODO()
+		is InsetEntries -> InsetEntryView(entry)
 		is ItemEntries -> TODO()
 		is ListEntry -> DescriptionListEntryView(entry)
 		is QuoteEntries -> TODO()
 		is SimpleEntry -> Text(entry.content, fontSize = SmallFontSize)
-		is SubEntries -> TODO()
+		is SubEntries -> SubEntriesView(entry)
 		is TableEntry -> TODO()
+	}
+}
+
+@Composable
+private fun InsetEntryView(outerEntry: InsetEntries) {
+	Column(modifier = Modifier.padding(horizontal = 10.dp).fillMaxWidth()) {
+		Row {
+			Text(outerEntry.name, fontSize = SmallFontSize)
+			val source = "${outerEntry.source} p${outerEntry.page}"
+			Text(source, fontSize = SmallFontSize, textAlign = TextAlign.End, modifier = Modifier.weight(1f, true))
+		}
+		outerEntry.entries.forEach { entry ->
+			DescriptionEntryView(entry)
+		}
+	}
+}
+
+@Composable
+private fun SubEntriesView(outerEntry: SubEntries) {
+	Column(modifier = Modifier.fillMaxWidth()) {
+		Text(outerEntry.name, fontSize = SmallFontSize, fontWeight = FontWeight.Bold)
+		outerEntry.entries.forEach { entry ->
+			DescriptionEntryView(entry)
+		}
 	}
 }
 

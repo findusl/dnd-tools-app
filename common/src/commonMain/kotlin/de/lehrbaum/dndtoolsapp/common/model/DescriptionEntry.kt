@@ -11,11 +11,7 @@ sealed class DescriptionEntry
 @SerialName("simple")
 data class SimpleEntry(
 	val content: String
-) : DescriptionEntry() {
-	override fun toString(): String {
-		return super.toString()
-	}
-}
+) : DescriptionEntry()
 
 @Serializable
 @SerialName("entries")
@@ -63,11 +59,7 @@ data class ListEntry(
 	val style: String? = null,
 	@SerialName("items")
 	val items: List<@Serializable(with = DescriptionEntrySerializer::class) DescriptionEntry>,
-) : DescriptionEntry() {
-	override fun toString(): String {
-		return super.toString()
-	}
-}
+) : DescriptionEntry()
 
 @Serializable
 @SerialName("table")
