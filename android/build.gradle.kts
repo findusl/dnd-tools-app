@@ -8,7 +8,7 @@ group = "de.lehrbaum.dndtoolsapp"
 version = "0.1"
 
 dependencies {
-	val composeVersion = "1.0.5"
+	val composeVersion = "1.1.1"
 
 	implementation(project(":common"))
 
