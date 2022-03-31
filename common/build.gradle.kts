@@ -43,7 +43,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-				api("androidx.appcompat:appcompat:1.4.0")
+				api("androidx.appcompat:appcompat:1.4.1")
 				api("androidx.core:core-ktx:1.7.0")
 
 				implementation("io.ktor:ktor-client-android:$ktorVersion")
