@@ -24,7 +24,7 @@ dependencies {
 
 	implementation("androidx.activity:activity-compose:1.4.0")
 
-	implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0")
+	implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
 }
 
 android {
