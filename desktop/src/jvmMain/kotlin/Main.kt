@@ -4,11 +4,11 @@ import androidx.compose.ui.window.application
 import de.lehrbaum.dndtoolsapp.common.App
 import de.lehrbaum.dndtoolsapp.common.initializeLogging
 import de.lehrbaum.dndtoolsapp.common.network.NetworkClient
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.cancel
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.runBlocking
 
+@DelicateCoroutinesApi
 fun main() {
 	initializeLogging()
 
@@ -17,17 +17,15 @@ fun main() {
 	runBlocking {
 		val allSpells = networkClient.spells.stateIn(GlobalScope)
 
-		allSpells.collect { spells ->
-			println("Managed to load ${spells.size} spells. First: ${spells.first()}")
+		val spells = allSpells.first()
 
-			val multiDurationSpells = spells.filter { it.duration.size > 1 }.joinToString()
-			println("These spells have multiple durations: $multiDurationSpells")
+		println("Managed to load ${spells.size} spells. First: ${spells.first()}")
 
-			val multiCastingTimeSpells = spells.filter { it.castingTime.size > 1 }.joinToString()
-			println("These spells have multiple casting times: $multiCastingTimeSpells")
+		val multiDurationSpells = spells.filter { it.duration.size > 1 }.joinToString()
+		println("These spells have multiple durations: $multiDurationSpells")
 
-			cancel()
-		}
+		val multiCastingTimeSpells = spells.filter { it.castingTime.size > 1 }.joinToString()
+		println("These spells have multiple casting times: $multiCastingTimeSpells")
 	}
 
 	// runApplication()

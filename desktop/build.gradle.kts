@@ -1,9 +1,11 @@
+@file:Suppress("UNUSED_VARIABLE") // I need to name the Source sets for multiplatform magic
+
 import org.jetbrains.compose.compose
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
     kotlin("multiplatform")
-    id("org.jetbrains.compose") version "1.0.0"
+    id("org.jetbrains.compose") version "1.1.1"
 }
 
 group = "de.lehrbaum.dndtoolsapp"
