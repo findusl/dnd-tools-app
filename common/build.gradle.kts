@@ -11,7 +11,7 @@ group = "de.lehrbaum.dndtoolsapp"
 version = "0.1"
 
 kotlin {
-	val kotlinxSerializationVersion = "1.3.1"
+	val kotlinxSerializationVersion = "1.3.2"
 	val ktorVersion = "1.6.8"
     android()
     jvm("desktop") {
