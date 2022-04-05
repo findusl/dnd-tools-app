@@ -30,7 +30,7 @@ kotlin {
 
 				api("org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlinxSerializationVersion")
 				api("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion")
-				api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+				api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
 
 				api("io.ktor:ktor-client-core:$ktorVersion")
 				api("io.ktor:ktor-client-serialization:$ktorVersion")
