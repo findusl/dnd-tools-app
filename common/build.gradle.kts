@@ -14,7 +14,7 @@ version = "0.1"
 
 kotlin {
 	val kotlinxSerializationVersion = "1.3.2"
-	val ktorVersion = "1.6.8"
+	val ktorVersion = "2.0.0"
     android()
     jvm("desktop") {
         compilations.all {
