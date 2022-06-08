@@ -13,7 +13,7 @@ group = "de.lehrbaum.dndtoolsapp"
 version = "0.1"
 
 kotlin {
-	val kotlinxSerializationVersion = "1.3.2"
+	val kotlinxSerializationVersion = "1.3.3"
 	val ktorVersion = "2.0.2"
     android()
     jvm("desktop") {
@@ -30,14 +30,14 @@ kotlin {
 
 				api("org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlinxSerializationVersion")
 				api("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion")
-				api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
+				api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
 
 				api("io.ktor:ktor-client-core:$ktorVersion")
 				api("io.ktor:ktor-client-serialization:$ktorVersion")
 				api("io.ktor:ktor-client-content-negotiation:$ktorVersion")
 				api("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 
-				implementation("io.github.aakira:napier:2.4.0")
+				implementation("io.github.aakira:napier:2.6.1")
             }
         }
         val commonTest by getting {
