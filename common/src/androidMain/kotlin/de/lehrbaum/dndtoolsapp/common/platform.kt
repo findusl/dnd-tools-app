@@ -4,8 +4,8 @@ import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
-import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.json.serializer.KotlinxSerializer
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 actual fun getPlatformName(): String {
@@ -13,10 +13,9 @@ actual fun getPlatformName(): String {
 }
 
 actual fun getHttpClient() = HttpClient(Android) {
-	install(JsonFeature) {
-		serializer = KotlinxSerializer(Json {
+	install(ContentNegotiation) {
+		json(Json {
 			isLenient = true
-			// ignoreUnknownKeys = true
 		})
 	}
 }

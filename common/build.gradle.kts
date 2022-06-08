@@ -14,7 +14,7 @@ version = "0.1"
 
 kotlin {
 	val kotlinxSerializationVersion = "1.3.2"
-	val ktorVersion = "1.6.8"
+	val ktorVersion = "2.0.2"
     android()
     jvm("desktop") {
         compilations.all {
@@ -34,6 +34,8 @@ kotlin {
 
 				api("io.ktor:ktor-client-core:$ktorVersion")
 				api("io.ktor:ktor-client-serialization:$ktorVersion")
+				api("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+				api("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 
 				implementation("io.github.aakira:napier:2.4.0")
             }

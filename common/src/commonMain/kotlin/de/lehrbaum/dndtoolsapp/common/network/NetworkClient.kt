@@ -3,6 +3,7 @@ package de.lehrbaum.dndtoolsapp.common.network
 import de.lehrbaum.dndtoolsapp.common.getHttpClient
 import de.lehrbaum.dndtoolsapp.common.model.SpellList
 import io.github.aakira.napier.Napier
+import io.ktor.client.call.body
 import io.ktor.client.request.request
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
@@ -19,7 +20,7 @@ class NetworkClient {
 	private val httpClient = getHttpClient()
 
 	private val spellSources = flow<Map<String, String>> {
-		emit(httpClient.request("https://5e.tools/data/spells/index.json"))
+		emit(httpClient.request("https://5e.tools/data/spells/index.json").body())
 	}
 
 	val spells = spellSources
@@ -30,7 +31,7 @@ class NetworkClient {
 					Napier.v("Loading spells from $url", tag = TAG)
 					async {
 						try {
-							httpClient.request<SpellList>(url)
+							httpClient.request(url).body<SpellList>()
 						} catch (e: Exception) {
 							Napier.e("Failed to load from $url", e, TAG)
 							null

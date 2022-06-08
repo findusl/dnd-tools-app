@@ -1,9 +1,11 @@
+@file:Suppress("OPT_IN_USAGE")
+
 package de.lehrbaum.dndtoolsapp.common
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
-import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.json.serializer.KotlinxSerializer
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 actual fun getPlatformName(): String {
@@ -11,8 +13,8 @@ actual fun getPlatformName(): String {
 }
 
 actual fun getHttpClient() = HttpClient(CIO) {
-	install(JsonFeature) {
-		serializer = KotlinxSerializer(Json {
+	install(ContentNegotiation) {
+		json(Json {
 			isLenient = true
 			explicitNulls = false
 			encodeDefaults = false
