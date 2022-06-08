@@ -4,7 +4,7 @@ import org.jetbrains.compose.compose
 
 plugins {
     kotlin("multiplatform")
-	kotlin("plugin.serialization") version "1.6.10"
+	kotlin("plugin.serialization") version "1.6.21"
     id("org.jetbrains.compose") version "1.1.1"
     id("com.android.library")
 }
@@ -35,7 +35,7 @@ kotlin {
 				api("io.ktor:ktor-client-core:$ktorVersion")
 				api("io.ktor:ktor-client-serialization:$ktorVersion")
 
-				implementation("io.github.aakira:napier:2.3.0")
+				implementation("io.github.aakira:napier:2.4.0")
             }
         }
         val commonTest by getting {
@@ -45,8 +45,8 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-				api("androidx.appcompat:appcompat:1.4.1")
-				api("androidx.core:core-ktx:1.7.0")
+				api("androidx.appcompat:appcompat:1.4.2")
+				api("androidx.core:core-ktx:1.8.0")
 
 				implementation("io.ktor:ktor-client-android:$ktorVersion")
             }
